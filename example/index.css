@@ -1,0 +1,8 @@
+.Rating-element {
+	display: inline-block;
+	cursor: pointer;
+}
+
+.Rating-element--active {
+	color: hotpink;
+}
