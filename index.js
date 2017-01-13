@@ -1,4 +1,5 @@
 /** @jsx dom */
+import deepEqual from 'deep-equal';
 import dom from 'magic-virtual-element';
 
 const propTypes = {
@@ -40,6 +41,8 @@ const getItems = ({icon, max, onRate, value}) => {
 	return els;
 };
 
+const shouldUpdate = ({props}, nextProps) => !deepEqual(props, nextProps);
+
 const render = ({props}) => {
 	return (
 		<div class={['Rating', props.class]}>
@@ -48,4 +51,4 @@ const render = ({props}) => {
 	);
 };
 
-export default {defaultProps, propTypes, render};
+export default {defaultProps, propTypes, render, shouldUpdate};
