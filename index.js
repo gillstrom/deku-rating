@@ -1,10 +1,6 @@
 /** @jsx dom */
 import dom from 'magic-virtual-element';
 
-const defaultProps = {
-	value: 0
-};
-
 const propTypes = {
 	class: {
 		type: 'string'
@@ -23,35 +19,33 @@ const propTypes = {
 	}
 };
 
-function render({props}) {
-	const {icon, max, onRate, value} = props;
+const defaultProps = {
+	value: 0
+};
 
-	function onClick(val, i) {
-		return () => {
-			onRate(val, i);
-		};
-	}
+const onClick = (val, i, onRate) => () => onRate(val, i);
 
-	function getEls() {
-		const els = [];
+const getItems = ({icon, max, onRate, value}) => {
+	const els = [];
 
-		for (let i = 0; i < max; i++) {
-			if (i < parseInt(value, 10)) {
-				els.push(<div class='Rating-element Rating-element--active' onClick={onClick(value, i + 1)}>{icon}</div>);
-				continue;
-			}
-
-			els.push(<div class='Rating-element' onClick={onClick(value, i + 1)}>{icon}</div>);
+	for (let i = 0; i < max; i++) {
+		if (i < parseInt(value, 10)) {
+			els.push(<div class='Rating-element Rating-element--active' onClick={onClick(value, i + 1, onRate)}>{icon}</div>);
+			continue;
 		}
 
-		return els;
+		els.push(<div class='Rating-element' onClick={onClick(value, i + 1, onRate)}>{icon}</div>);
 	}
 
+	return els;
+};
+
+const render = ({props}) => {
 	return (
 		<div class={['Rating', props.class]}>
-			{getEls()}
+			{getItems(props)}
 		</div>
 	);
-}
+};
 
 export default {defaultProps, propTypes, render};
