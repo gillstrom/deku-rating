@@ -19,8 +19,14 @@ const App = {
 
 		return (
 			<div>
-				<Rating icon={icon} max='10' value={value} onRate={onRate}/>
-				{`You rated ${value}`}
+				<div>
+					<Rating icon={icon} max='10' value={value} onRate={onRate}/>
+					{`You rated ${value}`}
+				</div>
+				<div>
+					<Rating icon={icon} max='10' value='5' statical/>
+					Static value
+				</div>
 			</div>
 		);
 	}

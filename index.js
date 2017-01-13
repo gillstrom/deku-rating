@@ -15,27 +15,31 @@ const propTypes = {
 	onRate: {
 		type: 'function'
 	},
+	statical: {
+		type: 'boolean'
+	},
 	value: {
 		type: 'number'
 	}
 };
 
 const defaultProps = {
+	statical: false,
 	value: 0
 };
 
 const onClick = (val, i, onRate) => () => onRate(val, i);
 
-const getItems = ({icon, max, onRate, value}) => {
+const getItems = ({icon, max, onRate, statical, value}) => {
 	const els = [];
 
 	for (let i = 0; i < max; i++) {
 		if (i < parseInt(value, 10)) {
-			els.push(<div class='Rating-element Rating-element--active' onClick={onClick(value, i + 1, onRate)}>{icon}</div>);
+			els.push(<div class='Rating-element Rating-element--active' onClick={!statical && onClick(value, i + 1, onRate)}>{icon}</div>);
 			continue;
 		}
 
-		els.push(<div class='Rating-element' onClick={onClick(value, i + 1, onRate)}>{icon}</div>);
+		els.push(<div class='Rating-element' onClick={!statical && onClick(value, i + 1, onRate)}>{icon}</div>);
 	}
 
 	return els;
